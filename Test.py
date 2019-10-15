@@ -12,7 +12,7 @@ cv.imwrite('CITE2.jpg',img2)
 
 #plt.subplot(121)
 #plt.title('input')
-#plt.imshow(img1)
+#plt.imshow(img1)   
 #plt.subplot(122)
 #plt.title('output')
 #plt.imshow(img2)
