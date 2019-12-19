@@ -9,14 +9,13 @@ value = 1
 ratio = 3
 filename = 'coral3.png'
 kernel = np.ones((5,5), np.uint8)
-# The order of the colors is blue, green, red
+# The colors order is blue, green, red
 #lower_color_bounds = (0, 40, 40)
 #upper_color_bounds = (205,245,245)
 #
 max_lowThreshold = 100
 window_name = 'Edge Map'
 title_trackbar = 'Min Threshold:'
-ratio = 3
 kernel_size = 3
 iterations = 10
 
@@ -70,7 +69,6 @@ def find_corals(src, iterations):
             img_erosion = cv2.erode(~img_opened, element_ero, iterations=1)
         else:
             img_erosion = ~img_opened
-            print('pajuo')
         #img_show('Erotion', ~img_erosion)
 
         temp = cv2.cvtColor(~img_erosion,cv2.COLOR_GRAY2BGR)
@@ -85,12 +83,11 @@ def find_corals(src, iterations):
 img = cv2.imread(filename)
 img = cv2.resize(img,None, fx = 0.2, fy = 0.2, interpolation = cv2.INTER_LINEAR)
 
-blur = cv2.GaussianBlur(img,(11,11),0)
-img_show('Gaussian', blur)
 area, corals = find_corals(img,iterations)
 img_show('Corals',corals)
 img_show('Area',area)
 cv2.imwrite('Morfologic2.jpg', corals)
+
 kernel_size = 1
 img_blur = cv2.blur(area, (3,3))
 detected_edges = cv2.Canny(img_blur, value, value*ratio, kernel_size)
@@ -117,6 +114,8 @@ for c in contours:
         cv2.circle(img, (cX, cY), 5, (0, 255, 0), -1)
         cv2.putText(img, "centroid", (cX - 25, cY - 25),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
         # display the image
-        cv2.imshow("Image", img)
-        cv2.waitKey(0)
+        # cv2.imshow("Image", img)
+        # cv2.waitKey(0)
 
+cv2.imshow("Image", img)
+cv2.waitKey(0)

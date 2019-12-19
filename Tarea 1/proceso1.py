@@ -3,7 +3,10 @@ from matplotlib import pyplot as plt
 import numpy as np
 import math
 
+#Change your file name here
 filename = './Chichi/IMG_2478.jpg'
+
+
 pMin = 0.002
 pMax = 0.998
 pMinHsv = 0.002
@@ -42,17 +45,17 @@ def stretchHistogram(channel, limSup, limInf):
         newchannel[newchannel > 255] = channel[newchannel > 255] #Los valores mayores a 255 los hace 255
     return newchannel
 
-def rayleigh(channel, normalized):
-    normalized = normalized / numPixels
-    channel = np.array(channel)
-    new_channel = np.array(channel)
-    new_channel[new_channel == 255] = 254
-    x = 0
-    while(x < 255):
-        a = np.sqrt(2*alfha*alfha* math.log(1/(1-normalized[x])))
-        new_channel[channel == x] = a*255
-        x += 1
-    return new_channel
+# def rayleigh(channel, normalized):
+#     normalized = normalized / numPixels
+#     channel = np.array(channel)
+#     new_channel = np.array(channel)
+#     new_channel[new_channel == 255] = 254
+#     x = 0
+#     while(x < 255):
+#         a = np.sqrt(2*alfha*alfha* math.log(1/(1-normalized[x])))
+#         new_channel[channel == x] = a*255
+#         x += 1
+#     return new_channel
 
     
 img1 = cv2.imread(filename)
@@ -159,7 +162,7 @@ img1 = cv2.cvtColor(img1, cv2.COLOR_RGB2BGR)
 
 
 plt.subplot(231)
-plt.title('input')
+plt.title('Input')
 plt.imshow(img1)
 
 plt.subplot(232)
@@ -167,12 +170,12 @@ plt.title('Stretched RGB')
 plt.imshow(img2)
 
 plt.subplot(233)
-plt.title('Final output')
+plt.title('Stretched RGB and V, S from HSV')
 plt.imshow(img_output)
 
 
 plt.subplot(234)
-plt.title('IMG input')
+plt.title('Hist Input')
 for i,col in enumerate(color):
     histr = cv2.calcHist([img1],[i],None,[256],[0,256])
     plt.plot(histr,color = col,marker = ".")
@@ -186,13 +189,14 @@ for i,col in enumerate(color):
     plt.xlim([0,256])
 
 plt.subplot(236)
-plt.title('Hist final')
+plt.title('Hist Final')
 for i,col in enumerate(color):
     histr = cv2.calcHist([img_output],[i],None,[256],[0,256])
     plt.plot(histr,color = col, marker = ".")
     plt.xlim([0,256])
 plt.show()
 
-# GUARDAR IMAGEN
+
+# Save Image, first convert to BGR
 #img_output = cv2.cvtColor(img_output, cv2.COLOR_RGB2BGR)
 #cv2.imwrite('Output.png',img_output)

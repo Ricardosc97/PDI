@@ -3,7 +3,8 @@ from matplotlib import pyplot as plt
 import numpy as np
 import math
 alfha = 0.35
-#filename = './Chichi/img2.jpeg' #Choose your file here
+
+#Change your file name here
 filename = './Chichi/img2.jpeg'
 
 def rayleigh(channel, normalized):
